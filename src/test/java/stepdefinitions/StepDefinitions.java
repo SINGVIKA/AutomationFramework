@@ -59,5 +59,11 @@ public class StepDefinitions {
 	public void user_clicks_the_submit_button(String string) {
 	   
 	}
+	
+	@Then("User aspects {string} for Invalid Crederntails")
+	public void user_aspects_for_Invalid_Crederntails(String string) {
+	   
+	}
+
 
 }

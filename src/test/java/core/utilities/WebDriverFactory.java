@@ -44,7 +44,7 @@ public class WebDriverFactory {
 	
 
 			
-			switch (browser) {
+			switch (browser.toUpperCase()) {
 			case "CHROME":
 				driver = initialiseChromeDriver();
 				objectTimeout = CHROME_OBJECT_SYNC_DEFAULT_TIMEOUT;
@@ -76,7 +76,7 @@ public class WebDriverFactory {
 
 		System.out.println(userDir);
 
-		System.setProperty("WebDriver.chrome.driver", userDir+"/drivers/chromedriver");
+		System.setProperty("webDriver.chrome.driver", userDir+"/drivers/chromedriver");
 
 		return new ChromeDriver(setChromeCapability());
 	}

@@ -22,7 +22,7 @@ public class SeleniumTest {
 
 		System.out.println(userDir);
 
-		System.setProperty("WebDriver.chrome.driver", userDir+"/drivers/chromedriver");
+		System.setProperty("webDriver.chrome.driver", userDir+"/drivers/chromedriver");
 
 		driver = new ChromeDriver();
 

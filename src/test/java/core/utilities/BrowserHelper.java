@@ -8,7 +8,7 @@ public class BrowserHelper {
 	public static final int CHROME_OBJECT_SYNC_DEFAULT_TIMEOUT = 6;
 	public static final int OBJECT_SYNC_DEFAULT_TIMEOUT = 20;
 	
-	//Override existing driver [Serenity Driver Initialisation] : By Vikas Singh
+	
 		public static void overrideDriver(WebDriver webDriver) {
 			driver =webDriver;
 		}
