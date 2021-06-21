@@ -27,10 +27,18 @@ public class BrowserHelper {
 
 		driver = getDriver(Browser);
 		
+		driver.manage().window().maximize();
 		
 		return  driver;
 	}
 
+	
+	public static void killDriver() {
+		if (driver != null) {
+			driver.quit();
+		}
+		
+	}
 	
 	public static WebDriver getDriver(String Browser)
 			throws Exception {

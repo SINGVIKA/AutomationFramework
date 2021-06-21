@@ -2,6 +2,7 @@ package core.utilities;
 
 
 import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,15 +13,16 @@ import org.openqa.selenium.remote.CapabilityType;
 public class WebDriverFactory {
 
 	
-	public static final int CHROME_OBJECT_SYNC_DEFAULT_TIMEOUT = 6;
+	public static final int CHROME_OBJECT_SYNC_DEFAULT_TIMEOUT = 20;
 	
 	public static final int OBJECT_SYNC_DEFAULT_TIMEOUT = 20;
 
+	static WebDriver driver = null;
 
 	public static WebDriver getDriver(String browser)
 			throws Exception {
 
-		WebDriver driver = null;
+		
 		String deviceType = "DESKTOP";
 		String driverType = "Local";
 		
@@ -36,9 +38,12 @@ public class WebDriverFactory {
 
 		return driver;
 	}
+	
+	
+
 
 	private static WebDriver getDesktopDriver(String driverType, String browser) throws Exception {
-		int objectTimeout = 0;
+		//int objectTimeout = 0;
 		
 		WebDriver driver = null;
 	
@@ -47,7 +52,9 @@ public class WebDriverFactory {
 			switch (browser.toUpperCase()) {
 			case "CHROME":
 				driver = initialiseChromeDriver();
-				objectTimeout = CHROME_OBJECT_SYNC_DEFAULT_TIMEOUT;
+				//objectTimeout = CHROME_OBJECT_SYNC_DEFAULT_TIMEOUT;
+				driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+
 				break;
 			
 

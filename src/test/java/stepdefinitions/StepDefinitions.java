@@ -1,69 +1,101 @@
 package stepdefinitions;
 
+import static core.utilities.SeleniumTestUtilities.captureScreenShot;
+import static core.utilities.SeleniumTestUtilities.clickEventByXpath;
+import static core.utilities.SeleniumTestUtilities.userConfirmSelectProduct;
+import static core.utilities.SeleniumTestUtilities.userDeleteFromCart;
+import static core.utilities.SeleniumTestUtilities.userPlaceOrderDetails;
+import static core.utilities.SeleniumTestUtilities.clickEventButtonByXpath;
+import static core.utilities.SeleniumTestUtilities.userValidatePlaceOrderDetails;
+
+
+
+
+
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import core.utilities.BrowserHelper;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StepDefinitions {
-	
+
 	WebDriver driver = null;
+
+	String applicationUrl = "https://www.demoblaze.com/index.html";
+
+	Scenario scenario;
+
+	TakesScreenshot screenShot;
 	
 	@Before
-	public void setup()
-	{
-		System.out.println("Before is executed FIRST regardless of it's placement");
+	public void setup(Scenario sce) {
+		this.scenario = sce;
+
 	}
 
 	@After
-	public void cleanUp()
-	{
-		System.out.println("After is executed at LAST regardless of it's placement\n");
+	public void cleanUp() {
+		
+		captureScreenShot(driver, scenario);
+
+		BrowserHelper.killDriver();
+		scenario.write("Browser is closed");
+	}
+
+	@Given("User is on {string} page")
+	public void user_is_on_page(String string) throws Exception {
+
+		driver = BrowserHelper.initialiseDriver("Chrome");
+		driver.get(applicationUrl);
+		scenario.write("Chrome Driver Invoked & URL Navigated as " + applicationUrl);
+	}
+
+	@When("User clicks on {string} link")
+	public void user_clicks_on_link(String elementName) {
+
+		clickEventByXpath(elementName, driver, scenario);
+
 	}
 	
-	
-	@Given("User is on login page")
-	public void user_is_on_login_page() throws Exception {
-		
-		 driver = BrowserHelper.initialiseDriver("Chrome");
-		 
-		 driver.get("http://automationpractice.com/index.php");
+	@Then("User confirm to add the prodcuts on {string}")
+	public void user_confirm_to_add_the_prodcuts_on(String string) throws Exception {
+	   
+		userConfirmSelectProduct(driver, scenario);
+	}
+
+
+	@Then("User navigate to {string}")
+	public void user_navigate_to(String string) {
 	    
 	}
-
-	@Given("User clicks the Sign-in Link in header")
-	public void user_clicks_the_Sign_in_Link_in_header() {
-	  
-	}
-
-	@Then("User navigate to login page {string}")
-	public void user_navigate_to_login_page(String string) {
-	 
-	}
-
-	@When("User clicks the Sign-in button")
-	public void user_clicks_the_Sign_in_button() {
-	   
-	}
-
-	@When("User enters {string} and {string}")
-	public void user_enters_and(String string, String string2) {
-	   
-	}
-
-	@When("User clicks the {string} submit button")
-	public void user_clicks_the_submit_button(String string) {
-	   
+	
+	@Then("User wants to remove prodcuts as {string} from CartOrder")
+	public void user_wants_to_remove_prodcuts_as_from_CartOrder(String elementName) throws Exception {
+		userDeleteFromCart(elementName, driver, scenario);
 	}
 	
-	@Then("User aspects {string} for Invalid Crederntails")
-	public void user_aspects_for_Invalid_Crederntails(String string) {
-	   
+	@Then("User clicks on {string} button")
+	public void user_clicks_on_button(String elementName) {
+		
+		clickEventButtonByXpath(elementName, driver, scenario);
+		
 	}
 
+	
+	@Then("User fills the payments details")
+	public void user_fills_the_payments_details() throws Exception {
+		userPlaceOrderDetails(driver, scenario);
+	}
+
+	@Then("User Validate the payment details")
+	public void user_Validate_the_payment_details() throws Exception {
+		userValidatePlaceOrderDetails(driver);
+	}
 
 }

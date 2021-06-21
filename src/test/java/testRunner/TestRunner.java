@@ -12,7 +12,7 @@ import io.cucumber.junit.CucumberOptions;
  features = "src/test/resources/features", 
  glue={"stepdefinitions"}, 
  tags="@Login", monochrome = true,
-	plugin = {"pretty", "html:target/cucumber-html-report"}
+	plugin = {"pretty", "json:target/cucumber-json/cucumber.json" ,"html:target/cucumber-maven-report" }
 
 
  
